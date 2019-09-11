@@ -55,7 +55,7 @@ WPPASSWORD=$TEMPRANDSTR
 DATABASENAME=wp_legenki
 USERNAME=usrd2sgG4Ba
 
-WORDPRESSPATH=$SERVER_ROOT/wordpress
+WORDPRESSPATH=$SERVER_ROOT/legenki.com
 WPPORT=80
 SSLWPPORT=443
 
@@ -416,7 +416,7 @@ function install_wordpress
         tar -xzvf latest.tar.gz  >/dev/null 2>&1
         rm latest.tar.gz
         if [ "x$WPBASENAME" != "xwordpress" ] ; then
-            mv wordpress/ $WPBASENAME/
+            mv legenki.com/ $WPBASENAME/
         fi
         
         
@@ -878,16 +878,16 @@ END
 function config_server_wp
 {
     if [ -e "$SERVER_ROOT/conf/httpd_config.conf" ] ; then
-        cat $SERVER_ROOT/conf/httpd_config.conf | grep "virtualhost wordpress" >/dev/null
+        cat $SERVER_ROOT/conf/httpd_config.conf | grep "virtualhost legenki.com" >/dev/null
         if [ $? != 0 ] ; then
             sed -i -e "s/adminEmails/adminEmails $EMAIL\n#adminEmails/" "$SERVER_ROOT/conf/httpd_config.conf"
             sed -i -e "s/ls_enabled/ls_enabled   1\n#/" "$SERVER_ROOT/conf/httpd_config.conf"
 
-            VHOSTCONF=$SERVER_ROOT/conf/vhosts/wordpress/vhconf.conf
+            VHOSTCONF=$SERVER_ROOT/conf/vhosts/legenki.com/vhconf.conf
 
             cat >> $SERVER_ROOT/conf/httpd_config.conf <<END 
 
-virtualhost wordpress {
+virtualhost legenki.com {
 vhRoot                  $WORDPRESSPATH
 configFile              $VHOSTCONF
 allowSymbolLink         1
@@ -896,17 +896,17 @@ restrained              0
 setUIDMode              2
 }
 
-listener wordpress {
+listener legenki.com {
 address                 *:$WPPORT
 secure                  0
-map                     wordpress $SITEDOMAIN
+map                     legenki.com $SITEDOMAIN
 }
 
 
-listener wordpressssl {
+listener legenki.comssl {
 address                 *:$SSLWPPORT
 secure                  1
-map                     wordpress $SITEDOMAIN
+map                     legenki.com $SITEDOMAIN
 keyFile                 $SERVER_ROOT/conf/$KEY
 certFile                $SERVER_ROOT/conf/$CERT
 }
@@ -914,7 +914,7 @@ certFile                $SERVER_ROOT/conf/$CERT
 
 END
     
-            mkdir -p $SERVER_ROOT/conf/vhosts/wordpress/
+            mkdir -p $SERVER_ROOT/conf/vhosts/legenki.com/
             cat > $VHOSTCONF <<END 
 docRoot                   \$VH_ROOT/
 index  {
