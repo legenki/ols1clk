@@ -416,7 +416,7 @@ function install_wordpress
         tar -xzvf latest.tar.gz  >/dev/null 2>&1
         rm latest.tar.gz
         if [ "x$WPBASENAME" != "xwordpress" ] ; then
-            mv legenki.com/ $WPBASENAME/
+            mv wordpress/ $WPBASENAME/
         fi
         
         
