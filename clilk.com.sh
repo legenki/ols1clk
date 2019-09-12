@@ -27,7 +27,7 @@ function getRandPassword
     TEMPRANDSTR=`cat /tmp/randpasswdtmpfile`
     rm /tmp/randpasswdtmpfile
     local DATE=`date`
-    TEMPRANDSTR=`echo "$TEMPRANDSTR$RANDOM$DATE" |  md5sum | base64 | head -c 8`
+    TEMPRANDSTR=`echo "$TEMPRANDSTR$RANDOM$DATE" |  md5sum | base64 | head -c 18`
 }
 
 OSNAMEVER=UNKNOWN
