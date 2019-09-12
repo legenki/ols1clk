@@ -52,10 +52,10 @@ USERPASSWORD=$TEMPRANDSTR
 getRandPassword
 WPPASSWORD=$TEMPRANDSTR
 
-DATABASENAME=wp_legenki
+DATABASENAME=wp_bootpix
 USERNAME=usrd2sgG4Ba
 
-WORDPRESSPATH=$SERVER_ROOT/legenki.com
+WORDPRESSPATH=$SERVER_ROOT/bootpix.com
 WPPORT=80
 SSLWPPORT=443
 
@@ -878,16 +878,16 @@ END
 function config_server_wp
 {
     if [ -e "$SERVER_ROOT/conf/httpd_config.conf" ] ; then
-        cat $SERVER_ROOT/conf/httpd_config.conf | grep "virtualhost legenki.com" >/dev/null
+        cat $SERVER_ROOT/conf/httpd_config.conf | grep "virtualhost bootpix.com" >/dev/null
         if [ $? != 0 ] ; then
             sed -i -e "s/adminEmails/adminEmails $EMAIL\n#adminEmails/" "$SERVER_ROOT/conf/httpd_config.conf"
             sed -i -e "s/ls_enabled/ls_enabled   1\n#/" "$SERVER_ROOT/conf/httpd_config.conf"
 
-            VHOSTCONF=$SERVER_ROOT/conf/vhosts/legenki.com/vhconf.conf
+            VHOSTCONF=$SERVER_ROOT/conf/vhosts/bootpix.com/vhconf.conf
 
             cat >> $SERVER_ROOT/conf/httpd_config.conf <<END 
 
-virtualhost legenki.com {
+virtualhost bootpix.com {
 vhRoot                  $WORDPRESSPATH
 configFile              $VHOSTCONF
 allowSymbolLink         1
@@ -896,17 +896,17 @@ restrained              0
 setUIDMode              2
 }
 
-listener legenki.com {
+listener bootpix.com {
 address                 *:$WPPORT
 secure                  0
-map                     legenki.com $SITEDOMAIN
+map                     bootpix.com $SITEDOMAIN
 }
 
 
-listener legenki.comssl {
+listener bootpix.comssl {
 address                 *:$SSLWPPORT
 secure                  1
-map                     legenki.com $SITEDOMAIN
+map                     bootpix.com $SITEDOMAIN
 keyFile                 $SERVER_ROOT/conf/$KEY
 certFile                $SERVER_ROOT/conf/$CERT
 }
@@ -914,7 +914,7 @@ certFile                $SERVER_ROOT/conf/$CERT
 
 END
     
-            mkdir -p $SERVER_ROOT/conf/vhosts/legenki.com/
+            mkdir -p $SERVER_ROOT/conf/vhosts/bootpix.com/
             cat > $VHOSTCONF <<END 
 docRoot                   \$VH_ROOT/
 index  {
